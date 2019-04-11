@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+	<!-- Enables the Spring MVC @Controller programming model -->
+	<annotation-driven />
+	<!-- 요청에 대한 컨트롤러가 없을때 기본 서블릿 핸들러(WAS)에게 위임  -->
+	<default-servlet-handler />
+	
+	<!-- 정적인 자윈의 요청을 실제경로와 매핑   -->
+	<resources mapping="/js/**" location="/js/" />
+	<resources mapping="/bootstrap/**" location="/bootstrap-3.3.2-dist/" />
+
+	<!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
+	<beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<context:component-scan base-package="kr.ac.pcu" />
+	
+	<!-- // DataSource 설정  -->
+	<!-- // 스프링에서 일부 빈의 이름은 내부적으로 사용하는게 있습니다.
+	     // dataSource,  multipartResolver ..
+	  -->
+	<beans:bean id="dataSource" 
+				class="org.apache.tomcat.jdbc.pool.DataSource">
+		<beans:property name="driverClassName" value="com.mysql.jdbc.Driver"  />
+		<!-- 로컬에 mysql 기동이 안되는 분 : 114.70.84.24:3306 -->
+		<beans:property name="url"
+		     value="jdbc:mysql://localhost:3306/pcu_db?characterEncoding=utf8"  />
+		<beans:property name="username" value="pcu"  />
+		<beans:property name="password" value="mysql"  />
+		<beans:property name="initialSize" value="5"  />
+		<beans:property name="maxActive" value="20"  />		
+	</beans:bean>
+	
+	
+	<!-- MyBatis 설정(스프링 설정파일) -->
+	<beans:bean id="sqlSessionFactoryBean" 
+	        class="org.mybatis.spring.SqlSessionFactoryBean">            
+	    <beans:property name="dataSource" ref="dataSource"  />
+	    <beans:property name="configLocation" value="classpath:mybatis/mybatis-config.xml" />
+	    <beans:property name="mapperLocations" value="classpath:mybatis/mapper/*Mapper.xml" />
+	</beans:bean>
+	
+	<mybatis-spring:scan base-package="kr.ac.pcu.*.dao" />
+	
+	<!-- sqlSession 으로 서비스에서 직접호출시 필요   -->
+	<beans:bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" >
+	    <beans:constructor-arg ref="sqlSessionFactoryBean" />
+	</beans:bean>
+	
+	
+	
+</beans:beans>

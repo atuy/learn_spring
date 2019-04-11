@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- mybatis-config.xml -->
+<configuration>
+
+<!-- table 컬럼 _  형식을 자동으로 낙타식표기법으로 처리    -->	
+<settings>
+	<setting name="mapUnderscoreToCamelCase" value="true"/>
+</settings>
+
+</configuration>
