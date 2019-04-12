@@ -3,12 +3,17 @@ package kr.ac.pcu.admin.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -60,10 +65,11 @@ public class AdminMemberController {
 	}
 	
 	
-	// 사용자 등록을 위해서 입력화면처 입력처리에 대한 2가지를 기술하는 데
-	// 
-	
-	@RequestMapping(value="/admin/member/regist.do", method=RequestMethod.GET)
+	// 사용자 등록을 위해서 입력처리에 대한 2가지를 사용 
+	// 방법1: 등록화면 : regist.do  , 등록처리 : registProc.do
+	// 방법2: 등록화면 : regist.do(GET)  , 등록처리 : regist.do(POST)	
+	// @RequestMapping(value="/admin/member/regist.do", method=RequestMethod.GET)
+	@GetMapping("/admin/member/regist.do")
 	public String memberRegist() throws Exception {
 		
 		// 뷰로 포위드		
@@ -71,9 +77,16 @@ public class AdminMemberController {
 	}
 	
 	@RequestMapping(value="/admin/member/regist.do", method=RequestMethod.POST)
-	public String memberRegist(Member member) throws Exception {
+	public String memberRegist(@ModelAttribute("member") @Valid Member member
+			                   , Errors errors) throws Exception {
+		// 검증 
+		if(errors.hasErrors()) {
+			return "admin/member/regist";
+		}		
+		
 		memberService.registMember(member);
-		// 등록에 성공했는데... 결과에 대한 처리는 ??		
+		// 등록에 성공했는데... 결과에 대한 처리는 ??
+		// return "admin/member/list";
 		return "redirect:/admin/member/list.do";
 	}
 		

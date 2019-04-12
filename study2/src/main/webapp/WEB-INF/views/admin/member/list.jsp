@@ -17,6 +17,10 @@
 </head>
 <body>
 <div class="container">
+	<p>
+		<a href="regist.do" class="btn btn-sm btn-primary">회원가입</a>
+	</p>
+	
 	<table class="table table-striped">
 		<thead>
 			<tr>

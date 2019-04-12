@@ -26,8 +26,7 @@
 	        parameterType="kr.ac.pcu.admin.web.Member"  >
 	INSERT INTO tb_member  
 		      (id, name, point, birth, tel, address, locale_cd, reg_date) 
-  	VALUES (#{id}, #{name}, 0, #{birth}, #{tel}, #{address}, #{localeCd}, NOW())	
-	
+  	VALUES (#{id}, #{name}, 0, #{birth}, #{tel}, #{address}, #{localeCd}, NOW())
 	</insert>
 	<update id="updateMember" 
 	        parameterType="kr.ac.pcu.admin.web.Member" >
