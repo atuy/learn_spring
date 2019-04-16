@@ -6,8 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>/index.jsp</title>
+<%@include file="/WEB-INF/views/inc/include.jsp" %>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/inc/top.jsp" %>
+
 <a href="${pageContext.request.contextPath}/board/list.do" >게시판 목록</a> <br>
 <a href="<c:url value="/board/list.do" />" >게시판 목록</a>
 <hr>

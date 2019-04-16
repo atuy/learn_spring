@@ -45,4 +45,10 @@ public class AdminMemberServiceImpl  implements AdminMemberService {
 		return (ret > 0 ? true : false );
 	}
 
+	@Override
+	public Member getLoginCheck(Member member) throws Exception {
+		Member r = memberMapper.selectMemberLogin(member);
+		return r;
+	}
+	
 }

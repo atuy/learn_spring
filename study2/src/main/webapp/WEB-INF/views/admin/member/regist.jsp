@@ -16,6 +16,8 @@
 <%@include file="/WEB-INF/views/inc/include.jsp" %>
 </head>
 <body>
+<%@ include file="/WEB-INF/views/inc/top.jsp" %>
+
 <div class="container">
 <div class="page-header">
    <h1>회원등록</h1>
@@ -27,7 +29,7 @@
     <label class="col-sm-2 control-label">아이디</label>
     <div class="col-sm-10">
       <input type="text" name="id" class="form-control" value="${member.id}"  placeholder="">
-      <form:errors path="member.id" />
+      <form:errors path="member.id" delimiter="<p>" element="div" />
     </div>
   </div>
   

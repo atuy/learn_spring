@@ -28,6 +28,7 @@
 		      (id, name, point, birth, tel, address, locale_cd, reg_date) 
   	VALUES (#{id}, #{name}, 0, #{birth}, #{tel}, #{address}, #{localeCd}, NOW())
 	</insert>
+	
 	<update id="updateMember" 
 	        parameterType="kr.ac.pcu.admin.web.Member" >
 		UPDATE tb_member   
@@ -38,4 +39,25 @@
 			   locale_cd = #{localeCd}   
 		 WHERE id = #{id}       
 	</update>
+	
+	<select id="selectMemberLogin"
+	        parameterType="kr.ac.pcu.admin.web.Member"
+	        resultType="kr.ac.pcu.admin.web.Member">
+		SELECT *
+		  FROM tb_member
+		 WHERE id       = #{id}  	
+		   AND password = PASSWORD(#{password})
+	</select>
+	
+	
 </mapper>
+
+
+
+
+
+
+
+
+
+

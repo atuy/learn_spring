@@ -78,7 +78,7 @@ public class AdminMemberController {
 	
 	@RequestMapping(value="/admin/member/regist.do", method=RequestMethod.POST)
 	public String memberRegist(@ModelAttribute("member") @Valid Member member
-			                   , Errors errors) throws Exception {
+			                   , Errors errors ) throws Exception {
 		// 검증 
 		if(errors.hasErrors()) {
 			return "admin/member/regist";
